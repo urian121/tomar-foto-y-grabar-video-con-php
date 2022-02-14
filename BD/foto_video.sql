@@ -29,7 +29,6 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `archivos` (
   `id` int(10) NOT NULL,
-  `desde` varchar(50) DEFAULT NULL,
   `nameFile` text DEFAULT NULL,
   `dateFile` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

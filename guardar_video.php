@@ -4,24 +4,6 @@ require("config.php");
 date_default_timezone_set("America/Bogota");
 $dateFile   = date('d-m-Y H:i:s A', time()); 
 
-function getVisitorIp()
-{
-  if (!empty($_SERVER['HTTP_CLIENT_IP']))   
-  {
-    $ipAdress = $_SERVER['HTTP_CLIENT_IP'];
-  }
-  elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))  
-  {
-    $ipAdress = $_SERVER['HTTP_X_FORWARDED_FOR'];
-  }
-  else
-  {
-    $ipAdress = $_SERVER['REMOTE_ADDR'];
-  }
-  return $ipAdress;
-}
-
- $ipUserDesde = getVisitorIp();
 
 # Si no hay archivos, salir inmediatamente
 if (count($_FILES) <= 0 || empty($_FILES["video"])) {
@@ -55,7 +37,7 @@ echo $nameFile;
 closedir($dir);
 
 //Registrando video en BD
-$queryInsert  = ("INSERT INTO archivos(desde,nameFile, dateFile) VALUES ('$ipUserDesde','$nameFile','$dateFile')");
+$queryInsert  = ("INSERT INTO archivos(nameFile, dateFile) VALUES ('$nameFile','$dateFile')");
 $resultInsert = mysqli_query($con, $queryInsert);
 
 }

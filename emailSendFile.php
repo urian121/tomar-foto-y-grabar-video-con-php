@@ -1,16 +1,16 @@
 <?php
 require("config.php");
-$id_archivo = $_REQUEST['id_archivo'];
-$typeFile   = $_REQUEST['typeFile'];
-$email      = $_REQUEST['email'];
-$archivo    = $_REQUEST['arch'];
-$nameArch   = $_REQUEST['nameArch'];
+    $id_archivo = $_REQUEST['id_archivo'];
+    $typeFile   = $_REQUEST['typeFile'];
+    $email      = $_REQUEST['email'];
+    $archivo    = $_REQUEST['arch'];
+    $nameArch   = $_REQUEST['nameArch'];
 
-if($typeFile =="video"){
-    $contenido = 'https://campainbull.online/photo-video/videos/'.$archivo;
-}else{
-    $contenido = 'https://campainbull.online/photo-video/fotos/'.$archivo;
-}
+    if($typeFile =="video"){
+        $contenido = 'https://campainbull.online/photo-video/videos/'.$archivo;
+    }else{
+        $contenido = 'https://campainbull.online/photo-video/fotos/'.$archivo;
+    }
 
 
 
@@ -53,7 +53,7 @@ $headers .= "Return-path:";
 $headers .= "Cc:"; 
 $headers .= "Bcc:"; 
 
-mail($para, $titulo, $mensaje, $headers);
+@mail($para, $titulo, $mensaje, $headers);
 
 }
 

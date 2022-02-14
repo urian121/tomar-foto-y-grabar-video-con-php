@@ -30,11 +30,11 @@ const init = () => {
  
         var videoElement = document.getElementById("video");
 
-// Imprime la altura nativa del video
-console.log(videoElement.videoHeight);
+        // Imprime la altura nativa del video
+        console.log(videoElement.videoHeight);
 
-// Imprime el ancho nativo del video
-console.log(videoElement.videoWidth);
+        // Imprime el ancho nativo del video
+        console.log(videoElement.videoWidth);
 
     // Algunas funciones útiles
     const limpiarSelect = elemento => {
