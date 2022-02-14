@@ -7,9 +7,9 @@ require("config.php");
     $nameArch   = $_REQUEST['nameArch'];
 
     if($typeFile =="video"){
-        $contenido = 'https://campainbull.online/photo-video/videos/'.$archivo;
+        $contenido = 'http://demos.proyectos.webdeveloper.sgbcolombia.com/videos/'.$archivo;
     }else{
-        $contenido = 'https://campainbull.online/photo-video/fotos/'.$archivo;
+        $contenido = 'http://demos.proyectos.webdeveloper.sgbcolombia.com/fotos/'.$archivo;
     }
 
 

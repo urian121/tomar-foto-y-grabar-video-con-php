@@ -184,7 +184,7 @@ const llenarSelectConDispositivosDisponibles = () => {
                            $("#msjFinal").hide();
                         }, 2000);
                         
-                        $("#capanueva").html(`<img src='fotos/${nombreDeLaFoto}' style='top: 50%; left: 50%; transform: translate(-50%, -50%); width:100%; width:360px; position: absolute;z-index: -1;'>`);
+                        $("#capanueva").html(`<img src='fotos/${nombreDeLaFoto}' style='top: 50%; left: 50%; transform: translate(-50%, -50%); width:100%; width:280px; position: absolute;z-index: -1;'>`);
                         $("#btnCapturar").show();
                         console.log(nombreDeLaFoto);
                     
