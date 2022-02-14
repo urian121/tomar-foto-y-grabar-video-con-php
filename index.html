@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<meta http-equiv="ScreenOrientation" content="autoRotate:disabled">
+	<title>Claro - Photo & video</title>
+	<link type="text/css" rel="shortcut icon" href="assets/images/favicon.ico"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css"> 
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  
+	<div class="contenedor" id="contenedorPantalla">
+	    <select name="dispositivosDeAudio" id="dispositivosDeAudio" hidden></select>
+        <select name="dispositivosDeVideo" id="dispositivosDeVideo" hidden></select>
+              
+              
+        <select name="listaDeDispositivos" id="listaDeDispositivos" hidden></select>
+    
+        <img src="assets/images/marco-video.jpg"/>
+
+
+      <div class="centradoMarco">
+          <img id="filtro1" src="assets/images/fondo1.png"/>
+           <img id="filtro2" src="assets/images/filtroTwo.png" style="display:none;"/>
+          <div id="capanueva">   </div>
+      </div>
+
+      <div class="centradoVideo">
+        <video muted id="video" autoplay></video> 
+        <canvas id="canvas" style="display: none;"></canvas>
+    </div>
+	</div>
+
+<div id="contBtns">
+  <button id="boton" class="miBtn btnHover mb-3">
+    <i class="zmdi zmdi-camera-party-mode" style="color: #333;"></i> 
+    Tomar Foto
+  </button>
+    &nbsp;&nbsp;
+  <button id="btnCapturar" class="miBtn btnHover mb-3" style="background-color:#b02a37 !important; display: none;">
+    <i class="zmdi zmdi-camera-party-mode" style="color: #333;"></i> 
+      Enviar la Foto
+  </button>
+    &nbsp;&nbsp;
+  <button id="btn-back" class="miBtn btnHover">Cámara Trasera</button>
+  &nbsp;&nbsp;
+  <button id="nuewfiltro" class="miBtn btnHover">Cambiar filtro</button>
+    &nbsp;&nbsp;
+    <button id="btnComenzarGrabacion" class="btnGrabar btnHover mb-3" style="background-color:#138496 !important;">
+        <i class="zmdi zmdi-videocam zmdi-hc-lg" style="color: #333;"></i> 
+        Grabar vídeo 
+     </button>
+    <button id="btnDetenerGrabacion" class="btnGrabar btnHover mb-3" style="background-color:#ff695f; display: none;">
+        <i class="zmdi zmdi-videocam-off" style="color: #333;"></i> 
+        Detener grabación
+    </button>
+    &nbsp;&nbsp;
+<br>
+<p id="duracion" style="display:none;"></p>
+<p id="estado"> </p>
+</div>
+
+
+<script  src="https://code.jquery.com/jquery-2.2.4.js"  integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+<script src="VideoFront.js"></script> 
+<script src="CamaraFront.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.1/dist/html2canvas.min.js"></script>
+<script>
+  const $boto = document.querySelector("#btnCapturar"), // El botón que desencadena
+        $statu = document.querySelector("#estado"),
+        $objetivo   = document.querySelector("#contenedorPantalla"); // A qué le tomamos la foto
+  
+const enviarCapturaAServidor = canvas => {
+
+  let imagenComoBase64 = canvas.toDataURL();
+  imagenComoBase64 = encodeURIComponent(imagenComoBase64);
+
+  const payload = {
+    "captura": imagenComoBase64
+  };
+  const ruta = "guardarCapture.php";
+  fetch(ruta, {
+    method: "POST",
+    body: JSON.stringify(payload),
+    headers: {
+      "Content-type": "application/x-www-form-urlencoded",
+    }
+  })
+    .then(resultado => {
+        console.log('cargando');
+      return resultado.text()
+    })
+    .then(nombreDeLaFoto => {
+      //console.log({ nombreDeLaFoto });
+      //alert(`Guardada como ${nombreDeLaFoto}`);
+      location.href = `enviarFile.php?foto=${nombreDeLaFoto}`;
+      
+    });
+};
+
+$boto.addEventListener("click", () => {
+        
+  html2canvas($objetivo) 
+    .then(enviarCapturaAServidor);
+    
+    $statu.innerHTML = `<p id='msjFinal' style='margin: 5px !important; text-align: center;color: #ff685f;font-weight: 600;width: 90%;margin: 0 auto;padding: 10px 15px;font-size: 15px;background-color: #fff;'>Cargando, por favor espera unos segundos . . . `;
+    
+});
+
+
+
+//Trabajando con la camara Fron & Tras
+$("#btn-back").click(function(){
+         location.href = `camaraTrasera.html`;
+ });
+
+//Cambiar de filtros
+var inicio = true;
+	$("#nuewfiltro").click(function(){
+		if(inicio == true){
+		    inicio = false;
+                    $("#filtro1").hide();
+		    $("#filtro2").show();
+		}
+		else{
+		   inicio = true;
+                   $("#filtro1").show();
+		   $("#filtro2").hide();
+		}
+	});
+	
+	
+	
+</script>
+
+</body>
+</html>
